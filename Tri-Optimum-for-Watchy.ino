@@ -6,6 +6,21 @@
 
 class WatchFace : public Watchy { //inherit and extend Watchy class
   public:
+ 
+ 		void drawGlitch() {
+ 				int x, y, w ,f;
+ 				bool light = false;
+ 				for (int i = 0;random(1,6);1) {
+ 					// set dist width, position
+ 					w = random(4,40);
+ 					x = random(0,200-w);
+ 					y = random(0,200);
+ 					if (random(0,2) > 0) {
+ 						light = true;
+ 					}
+ 					display.fillRect(x,y,w,1,light ? GxEPD_WHITE : GxEPD_BLACK);
+ 				}
+ 		}
   
     void drawWatchFace() { //override this method to customize how the watch face looks
       
@@ -71,6 +86,8 @@ class WatchFace : public Watchy { //inherit and extend Watchy class
       for (int i = 0; i <= batt*10; i++) {
         display.drawBitmap(100-(batt*40)+(i*8), 190, health, 8, 10, GxEPD_BLACK);
       }
+      
+      //drawGlitch();
     }
 };
 
