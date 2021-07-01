@@ -1,23 +1,35 @@
 #include <Watchy.h> //include the Watchy library
-#include "BarlowCondensed_Bold36pt7b.h"
-#include "BarlowCondensed_Bold10pt7b.h"
+#include "Teko_Medium36pt7b.h"
+#include "Teko_Medium10pt7b.h"
 #include "images.h"
-				
+
 
 class WatchFace : public Watchy { //inherit and extend Watchy class
   public:
+  
     void drawWatchFace() { //override this method to customize how the watch face looks
       
       int16_t  x1, y1, lasty;
       uint16_t w, h,h2;
       String textstring;
+
+      // ** UPDATE **
+      //at midnight everyday
+      if(currentTime.Hour == 0 && currentTime.Minute == 0) {
+        //resets step counter 
+        sensor.resetStepCounter();
+        //set time
+        // setNetworkTime(); <= broken
+      }
+
+      // ** DRAW **
       
       //drawbg
       display.fillScreen(GxEPD_WHITE);
       display.drawBitmap(0, 0, bg, 200, 200, GxEPD_BLACK);
 
       //draw time
-      display.setFont(&BarlowCondensed_Bold36pt7b);
+      display.setFont(&Teko_Medium36pt7b);
       display.setTextColor(GxEPD_BLACK);
       display.setTextWrap(false);
       textstring = currentTime.Hour;
@@ -34,7 +46,7 @@ class WatchFace : public Watchy { //inherit and extend Watchy class
       display.print(textstring);
 
       //draw date and steps
-      display.setFont(&BarlowCondensed_Bold10pt7b);
+      display.setFont(&Teko_Medium10pt7b);
       textstring = monthShortStr(currentTime.Month);
       textstring += " ";
       textstring += currentTime.Day;
